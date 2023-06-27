@@ -1,5 +1,6 @@
 package com.aritmetic.op.api.models;
 
+import com.aritmetic.op.api.types.OperationType;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
@@ -12,7 +13,7 @@ public class Operation {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String type;
+    private OperationType operationType;
     private double cost;
 
 }
