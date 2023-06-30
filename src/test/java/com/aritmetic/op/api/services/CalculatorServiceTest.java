@@ -5,9 +5,9 @@ import com.aritmetic.op.api.exceptions.CalculatorException;
 import com.aritmetic.op.api.types.OperationType;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Stream;
 
 import static com.aritmetic.op.api.Constants.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -27,24 +28,65 @@ class CalculatorServiceTest {
     private CalculatorServiceImpl calculatorServiceImpl;
 
     @InjectMocks
-    private RandomStringServiceImpl randomStringService;
+    private RandomStringService randomStringService;
 
-    @InjectMocks
-    private UserServiceImpl userServiceImpl;
 
     @BeforeEach
     private void setup() {
-        calculatorServiceImpl = new CalculatorServiceImpl(randomStringService, userServiceImpl);
+        calculatorServiceImpl = new CalculatorServiceImpl(randomStringService);
     }
 
-    @Test
-    void testSuccessfullyAdditionOperationAndStatusCode() {
+    @ParameterizedTest
+    @MethodSource("operationTestData")
+    void testSuccessfullyOperationAndOkStatusCode(Operation operation, List<Double> numbers, double expectedValue) {
+        ResponseEntity<OperationResponseDto> response = operation.performOperation(calculatorServiceImpl, numbers);
+        assertEquals(buildExpectedResponse(expectedValue, 0.0), response.getBody());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+    }
 
-        ResponseEntity<OperationResponseDto> result = calculatorServiceImpl
-                .performAddition(Arrays.asList(1.5, 2.5));
+    private static Stream<Arguments> operationTestData() {
+        return Stream.of(
+                Arguments.of(Operation.ADDITION, Arrays.asList(1.5, 2.5), 4.0),
+                Arguments.of(Operation.SUBTRACTION, Arrays.asList(1.5, 2.5), -1.0),
+                Arguments.of(Operation.DIVISION, Arrays.asList(1.5, 2.5), 0.6),
+                Arguments.of(Operation.MULTIPLICATION, Arrays.asList(1.5, 2.5), 3.75),
+                Arguments.of(Operation.SQUARE_ROOT, Arrays.asList(4.0), 2.0)
+        );
+    }
 
-        assertEquals(getFinalResponse(4.0, 0.0, null), result.getBody());
-        assertEquals(HttpStatus.OK, result.getStatusCode());
+    enum Operation {
+        ADDITION {
+            @Override
+            ResponseEntity<OperationResponseDto> performOperation(CalculatorServiceImpl calculatorService, List<Double> numbers) {
+                return calculatorService.performAddition(numbers);
+            }
+        },
+        SUBTRACTION {
+            @Override
+            ResponseEntity<OperationResponseDto> performOperation(CalculatorServiceImpl calculatorService, List<Double> numbers) {
+                return calculatorService.performSubtraction(numbers);
+            }
+        },
+        DIVISION {
+            @Override
+            ResponseEntity<OperationResponseDto> performOperation(CalculatorServiceImpl calculatorService, List<Double> numbers) {
+                return calculatorService.performDivision(numbers);
+            }
+        },
+        MULTIPLICATION {
+            @Override
+            ResponseEntity<OperationResponseDto> performOperation(CalculatorServiceImpl calculatorService, List<Double> numbers) {
+                return calculatorService.performMultiplication(numbers);
+            }
+        },
+        SQUARE_ROOT {
+            @Override
+            ResponseEntity<OperationResponseDto> performOperation(CalculatorServiceImpl calculatorService, List<Double> numbers) {
+                return calculatorService.performSquareRoot(numbers);
+            }
+        };
+
+        abstract ResponseEntity<OperationResponseDto> performOperation(CalculatorServiceImpl calculatorService, List<Double> numbers);
     }
 
     @ParameterizedTest
@@ -53,16 +95,17 @@ class CalculatorServiceTest {
         try {
             calculatorServiceImpl.performAddition(numbers);
         } catch (CalculatorException e) {
-            assertMessageByOperationType(OperationType.ADDITION, expectedErrorMessage, e);
+            assertErrorMessageByOperationType(OperationType.ADDITION, expectedErrorMessage, e);
         }
     }
+
     @ParameterizedTest
     @MethodSource("genericErrorMessages")
     void testSubtractionOperationErrorMessages(List<Double> numbers, String expectedErrorMessage) {
         try {
             calculatorServiceImpl.performSubtraction(numbers);
         } catch (CalculatorException e) {
-            assertMessageByOperationType(OperationType.SUBTRACTION, expectedErrorMessage, e);
+            assertErrorMessageByOperationType(OperationType.SUBTRACTION, expectedErrorMessage, e);
         }
     }
 
@@ -72,25 +115,27 @@ class CalculatorServiceTest {
         try {
             calculatorServiceImpl.performMultiplication(numbers);
         } catch (CalculatorException e) {
-            assertMessageByOperationType(OperationType.MULTIPLICATION, expectedErrorMessage, e);
+            assertErrorMessageByOperationType(OperationType.MULTIPLICATION, expectedErrorMessage, e);
         }
     }
+
     @ParameterizedTest
     @MethodSource({"divisionErrorMessages", "genericErrorMessages"})
     void testDivisionOperationErrorMessages(List<Double> numbers, String expectedErrorMessage) {
         try {
             calculatorServiceImpl.performDivision(numbers);
         } catch (CalculatorException e) {
-            assertMessageByOperationType(OperationType.DIVISION, expectedErrorMessage, e);
+            assertErrorMessageByOperationType(OperationType.DIVISION, expectedErrorMessage, e);
         }
     }
+
     @ParameterizedTest
     @MethodSource({"squareRootErrorMessages", "genericErrorMessages"})
     void testSquareRootOperationErrorMessages(List<Double> numbers, String expectedErrorMessage) {
         try {
             calculatorServiceImpl.performSquareRoot(numbers);
         } catch (CalculatorException e) {
-            assertMessageByOperationType(OperationType.SQUARE_ROOT, expectedErrorMessage, e);
+            assertErrorMessageByOperationType(OperationType.SQUARE_ROOT, expectedErrorMessage, e);
         }
     }
 
@@ -103,29 +148,30 @@ class CalculatorServiceTest {
                 new Object[]{Arrays.asList(2.0, 2), ONLY_DOUBLE_NUMBERS_ERROR_MESSAGE},
                 new Object[]{Arrays.asList(5, 0.0), ONLY_DOUBLE_NUMBERS_ERROR_MESSAGE});
     }
+
     private static List<Object[]> divisionErrorMessages() {
         return Arrays.asList(
                 new Object[]{Arrays.asList(5.0, 0.0), DIVIDE_BY_ZERO},
                 new Object[]{Arrays.asList(5, 0.0), ONLY_DOUBLE_NUMBERS_ERROR_MESSAGE});
     }
+
     private static List<Object[]> squareRootErrorMessages() {
         return Arrays.asList(
                 new Object[]{Arrays.asList(5.0, 0.0), ERROR_JUST_ONE_NUMBER},
                 new Object[]{Arrays.asList(5, 0.0), ONLY_DOUBLE_NUMBERS_ERROR_MESSAGE});
     }
 
-    private void assertMessageByOperationType(OperationType operationType,
-                                              String expectedErrorMessage, CalculatorException e) {
+    private void assertErrorMessageByOperationType(OperationType operationType,
+                                                   String expectedErrorMessage, CalculatorException e) {
         Assertions.assertEquals(expectedErrorMessage + " in "
                 + operationType.toString().toLowerCase(), e.getMessage());
     }
 
-    private OperationResponseDto getFinalResponse(double result, double currentBalance, String randomString) {
+    private OperationResponseDto buildExpectedResponse(double result, double currentBalance) {
         return OperationResponseDto.builder()
                 .success(true)
                 .result(result)
                 .currentBalance(currentBalance)
-                .randomString(randomString)
                 .errorMessage(SUCCESSFULLY_OPERATION)
                 .build();
     }

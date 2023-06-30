@@ -1,52 +1,45 @@
 package com.aritmetic.op.api.config;
 
-import com.amazonaws.auth.AWSStaticCredentialsProvider;
-import com.amazonaws.auth.BasicAWSCredentials;
-import com.amazonaws.services.secretsmanager.AWSSecretsManagerClientBuilder;
-import com.amazonaws.services.secretsmanager.model.GetSecretValueRequest;
-import com.amazonaws.services.secretsmanager.model.GetSecretValueResult;
-import com.google.gson.Gson;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.jdbc.DataSourceBuilder;
+import com.aritmetic.op.api.repositories.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import javax.sql.DataSource;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
+@RequiredArgsConstructor
 public class ApplicationConfig {
-    @Value("${cloud.aws.credentials.secret-value}")
-    private String secretValue;
-    @Value("${cloud.aws.credentials.secret-key}")
-    private String secretKey;
-    @Value("${cloud.aws.credentials.secret-name}")
-    private String secretName;
-    @Value("${cloud.aws.region.static}")
-    private String region;
-    @Value("${cloud.aws.db.schema}")
-    private String schema;
+    private final UserRepository repository;
 
     @Bean
-    public DataSource dataSource() {
-
-        GetSecretValueResult getSecretValueResponse;
-
-        try {
-            getSecretValueResponse = AWSSecretsManagerClientBuilder.standard()
-                    .withRegion(region)
-                    .withCredentials(new AWSStaticCredentialsProvider(
-                            new BasicAWSCredentials(secretKey, secretValue)))
-                    .build().getSecretValue(new GetSecretValueRequest()
-                            .withSecretId(secretName));
-        } catch (Exception e) {
-            throw e;
-        }
-
-        AwsSecrets awsSecrets = new Gson().fromJson(getSecretValueResponse.getSecretString(), AwsSecrets.class);
-        return DataSourceBuilder
-                .create()
-                .url("jdbc:" + awsSecrets.getEngine() + "://" + awsSecrets.getHost() + ":" + awsSecrets.getPort() + "/" + schema)
-                .username(awsSecrets.getUsername())
-                .password(awsSecrets.getPassword()).build();
+    public UserDetailsService userDetailsService() {
+        return username -> repository.findByUsername(username).orElseThrow(() ->
+                new UsernameNotFoundException("User not found"));
     }
+
+    @Bean
+    public AuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        authProvider.setUserDetailsService(userDetailsService());
+        authProvider.setPasswordEncoder(passwordEncoder());
+        return authProvider;
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+        return config.getAuthenticationManager();
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
 }

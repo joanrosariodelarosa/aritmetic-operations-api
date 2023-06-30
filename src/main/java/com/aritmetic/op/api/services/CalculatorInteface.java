@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
-public interface Calculator {
+public interface CalculatorInteface {
     ResponseEntity<OperationResponseDto> performAddition(List<Double> numbers) throws Exception;
 
     ResponseEntity<OperationResponseDto> performSubtraction(List<Double> numbers) throws Exception;

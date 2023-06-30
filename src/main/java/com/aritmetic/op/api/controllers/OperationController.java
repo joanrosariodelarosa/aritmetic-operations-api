@@ -3,7 +3,7 @@ package com.aritmetic.op.api.controllers;
 
 import com.aritmetic.op.api.dtos.OperationResponseDto;
 import com.aritmetic.op.api.services.CalculatorServiceImpl;
-import com.aritmetic.op.api.services.RandomStringServiceImpl;
+import com.aritmetic.op.api.services.RandomStringService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,12 +13,11 @@ import java.util.List;
 @RestController
 @RequestMapping("/operation")
 public class OperationController {
-
     private final CalculatorServiceImpl calculatorService;
-    private final RandomStringServiceImpl randomStringService;
+    private final RandomStringService randomStringService;
 
     @Autowired
-    public OperationController(CalculatorServiceImpl calculatorService, RandomStringServiceImpl randomStringService) {
+    public OperationController(CalculatorServiceImpl calculatorService, RandomStringService randomStringService) {
         this.randomStringService = randomStringService;
         this.calculatorService = calculatorService;
     }

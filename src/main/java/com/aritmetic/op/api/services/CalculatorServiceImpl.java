@@ -12,16 +12,14 @@ import java.util.List;
 import static com.aritmetic.op.api.Constants.*;
 
 @Service
-public class CalculatorServiceImpl implements Calculator {
+public class CalculatorServiceImpl implements CalculatorInteface {
 
-    private final RandomStringServiceImpl randomStringService;
-    private final UserServiceImpl userService;
+    private final RandomStringService randomStringService;
 
 
     @Autowired
-    public CalculatorServiceImpl(RandomStringServiceImpl randomStringService, UserServiceImpl userService) {
+    public CalculatorServiceImpl(RandomStringService randomStringService) {
         this.randomStringService = randomStringService;
-        this.userService = userService;
     }
     public ResponseEntity<OperationResponseDto> performAddition(List<Double> numbers) {
         ErrorMessageHandler.validateErrorMessageByOperationType(numbers, OperationType.ADDITION);
@@ -47,7 +45,7 @@ public class CalculatorServiceImpl implements Calculator {
         return ResponseEntity.ok(OperationResponseDto.builder()
                 .success(true)
                 .result(operationResult)
-                .currentBalance(this.userService.getCurrentBalance())
+                .currentBalance(0.0)
                 .errorMessage(SUCCESSFULLY_OPERATION)
                 .build());
     }

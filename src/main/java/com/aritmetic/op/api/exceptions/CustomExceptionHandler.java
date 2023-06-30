@@ -3,6 +3,7 @@ package com.aritmetic.op.api.exceptions;
 import com.aritmetic.op.api.dtos.OperationResponseDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -16,8 +17,13 @@ public class CustomExceptionHandler {
         return handleBadResponseEntity(ex.getMessage());
     }
 
+    @ExceptionHandler(BadCredentialsException.class)
+    public ResponseEntity<OperationResponseDto> handleBadCredentialsException(BadCredentialsException ex) {
+        return handleBadResponseEntity(ex.getMessage());
+    }
+
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<OperationResponseDto> handleGenericException() {
+    public ResponseEntity<OperationResponseDto> handleGenericException(Exception e) {
         return handleBadResponseEntity(UNKNOWN_ERROR);
     }
 
