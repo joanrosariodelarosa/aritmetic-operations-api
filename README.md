@@ -1,2 +1,2 @@
-# Aritmetic Operations Api
+# Aritmetic Operations API
 request operations like addition, substraccion and division
