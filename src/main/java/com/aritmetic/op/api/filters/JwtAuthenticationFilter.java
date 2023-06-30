@@ -1,6 +1,6 @@
 package com.aritmetic.op.api.filters;
 
-import com.aritmetic.op.api.security.TokenRepository;
+import com.aritmetic.op.api.repositories.TokenRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

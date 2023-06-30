@@ -1,4 +1,4 @@
-package com.aritmetic.op.api.security;
+package com.aritmetic.op.api.repositories;
 
 import com.aritmetic.op.api.models.Token;
 import org.springframework.data.jpa.repository.JpaRepository;

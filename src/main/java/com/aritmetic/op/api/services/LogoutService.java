@@ -1,6 +1,6 @@
 package com.aritmetic.op.api.services;
 
-import com.aritmetic.op.api.security.TokenRepository;
+import com.aritmetic.op.api.repositories.TokenRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
