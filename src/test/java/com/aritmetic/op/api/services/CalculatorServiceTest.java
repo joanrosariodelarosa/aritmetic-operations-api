@@ -1,7 +1,7 @@
 package com.aritmetic.op.api.services;
 
 import com.aritmetic.op.api.dtos.OperationResponseDto;
-import com.aritmetic.op.api.exceptions.CalculatorException;
+import com.aritmetic.op.api.exceptions.CustomException;
 import com.aritmetic.op.api.types.OperationType;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -94,7 +94,7 @@ class CalculatorServiceTest {
     void testAdditionOperationErrorMessages(List<Double> numbers, String expectedErrorMessage) {
         try {
             calculatorServiceImpl.performAddition(numbers);
-        } catch (CalculatorException e) {
+        } catch (CustomException e) {
             assertErrorMessageByOperationType(OperationType.ADDITION, expectedErrorMessage, e);
         }
     }
@@ -104,7 +104,7 @@ class CalculatorServiceTest {
     void testSubtractionOperationErrorMessages(List<Double> numbers, String expectedErrorMessage) {
         try {
             calculatorServiceImpl.performSubtraction(numbers);
-        } catch (CalculatorException e) {
+        } catch (CustomException e) {
             assertErrorMessageByOperationType(OperationType.SUBTRACTION, expectedErrorMessage, e);
         }
     }
@@ -114,7 +114,7 @@ class CalculatorServiceTest {
     void testMultiplicationOperationErrorMessages(List<Double> numbers, String expectedErrorMessage) {
         try {
             calculatorServiceImpl.performMultiplication(numbers);
-        } catch (CalculatorException e) {
+        } catch (CustomException e) {
             assertErrorMessageByOperationType(OperationType.MULTIPLICATION, expectedErrorMessage, e);
         }
     }
@@ -124,7 +124,7 @@ class CalculatorServiceTest {
     void testDivisionOperationErrorMessages(List<Double> numbers, String expectedErrorMessage) {
         try {
             calculatorServiceImpl.performDivision(numbers);
-        } catch (CalculatorException e) {
+        } catch (CustomException e) {
             assertErrorMessageByOperationType(OperationType.DIVISION, expectedErrorMessage, e);
         }
     }
@@ -134,7 +134,7 @@ class CalculatorServiceTest {
     void testSquareRootOperationErrorMessages(List<Double> numbers, String expectedErrorMessage) {
         try {
             calculatorServiceImpl.performSquareRoot(numbers);
-        } catch (CalculatorException e) {
+        } catch (CustomException e) {
             assertErrorMessageByOperationType(OperationType.SQUARE_ROOT, expectedErrorMessage, e);
         }
     }
@@ -162,7 +162,7 @@ class CalculatorServiceTest {
     }
 
     private void assertErrorMessageByOperationType(OperationType operationType,
-                                                   String expectedErrorMessage, CalculatorException e) {
+                                                   String expectedErrorMessage, CustomException e) {
         Assertions.assertEquals(expectedErrorMessage + " in "
                 + operationType.toString().toLowerCase(), e.getMessage());
     }

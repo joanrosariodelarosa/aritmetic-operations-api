@@ -28,7 +28,7 @@ public class ErrorMessageHandler {
         }
 
         if (!errorMessage.isEmpty()) {
-            throw new CalculatorException(errorMessage + " in " + operationType.toString().toLowerCase());
+            throw new CustomException(errorMessage + " in " + operationType.toString().toLowerCase());
         }
 
     }
@@ -70,7 +70,7 @@ public class ErrorMessageHandler {
     static void ThrowdivideByZeroMessage(List<Double> numbers, OperationType operationType) {
         numbers.stream().skip(1).reduce(numbers.get(0), (a, b) -> {
             if (b == 0) {
-                throw new CalculatorException(DIVIDE_BY_ZERO + " in " + operationType.toString().toLowerCase());
+                throw new CustomException(DIVIDE_BY_ZERO + " in " + operationType.toString().toLowerCase());
             }
             return a / b;
         });

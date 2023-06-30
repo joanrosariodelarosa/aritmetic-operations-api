@@ -12,8 +12,8 @@ import static com.aritmetic.op.api.Constants.UNKNOWN_ERROR;
 @ControllerAdvice
 public class CustomExceptionHandler {
 
-    @ExceptionHandler(CalculatorException.class)
-    public ResponseEntity<OperationResponseDto> handleCalculatorException(CalculatorException ex) {
+    @ExceptionHandler(CustomException.class)
+    public ResponseEntity<OperationResponseDto> handleCalculatorException(CustomException ex) {
         return handleBadResponseEntity(ex.getMessage());
     }
 
