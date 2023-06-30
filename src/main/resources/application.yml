@@ -13,7 +13,7 @@ cloud:
 application:
   security:
     jwt:
-      secret-key: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
-      expiration: 60000
+      secret-key: ${JWT_SECRET_KEY}
+      expiration: ${JWT_EXP_TIME_TOKEN}
       refresh-token:
-        expiration: 200000
+        expiration: ${JWT_EXP_TIME_TOKEN}
