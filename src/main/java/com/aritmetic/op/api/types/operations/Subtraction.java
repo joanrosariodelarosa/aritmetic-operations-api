@@ -8,13 +8,12 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
-public enum Subtraction implements ArithmeticOperation {
-    INSTANCE;
+public class Subtraction implements ArithmeticOperation {
 
     @Override
-    public ResponseEntity<OperationResponseDto> performOperation(List<Double> operands) {
+    public ResponseEntity<OperationResponseDto> calculate(List<Double> operands) {
         return OperationDtoMapper.handleSuccessResponseEntity(
-                operands.stream().reduce((a, b) -> a - b).orElse(0.0),"");
+                operands.stream().reduce((a, b) -> a - b).orElse(0.0), "");
     }
 
     @Override

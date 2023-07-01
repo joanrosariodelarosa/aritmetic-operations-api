@@ -6,6 +6,6 @@ import org.springframework.http.ResponseEntity;
 import java.util.List;
 
 public interface ArithmeticOperation {
-    ResponseEntity<OperationResponseDto> performOperation(List<Double> operands);
+    ResponseEntity<OperationResponseDto> calculate(List<Double> operands);
     void handleValidation(List<Double> operands);
 }

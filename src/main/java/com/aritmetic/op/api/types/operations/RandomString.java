@@ -7,12 +7,11 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
-public enum RandomString implements ArithmeticOperation {
-    INSTANCE;
+public class RandomString implements ArithmeticOperation {
 
     @Override
-    public ResponseEntity<OperationResponseDto> performOperation(List<Double> operands) {
-         return OperationDtoMapper.handleSuccessResponseEntity(0.0,"");
+    public ResponseEntity<OperationResponseDto> calculate(List<Double> operands) {
+        return OperationDtoMapper.handleSuccessResponseEntity(0.0, "");
     }
 
     @Override

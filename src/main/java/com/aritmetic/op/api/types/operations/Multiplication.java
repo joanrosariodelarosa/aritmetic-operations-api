@@ -8,15 +8,12 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
-public enum Multiplication implements ArithmeticOperation {
-    INSTANCE;
-
+public class Multiplication implements ArithmeticOperation {
     @Override
-    public ResponseEntity<OperationResponseDto> performOperation(List<Double> operands) {
+    public ResponseEntity<OperationResponseDto> calculate(List<Double> operands) {
         return OperationDtoMapper.handleSuccessResponseEntity(
                 operands.stream().reduce(1.0, (a, b) -> a * b),"");
     }
-
     @Override
     public void handleValidation(List<Double> operands) {
         OperationValidatorUtil.basicOperandValidation(operands);

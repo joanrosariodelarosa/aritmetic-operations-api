@@ -7,17 +7,14 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
-public enum SquareRoot implements ArithmeticOperation {
-    INSTANCE;
-
+public class SquareRoot implements ArithmeticOperation {
     @Override
-    public ResponseEntity<OperationResponseDto> performOperation(List<Double> operands) {
-        return OperationDtoMapper.handleSuccessResponseEntity(Math.sqrt(operands.get(0)),"");
+    public ResponseEntity<OperationResponseDto> calculate(List<Double> operands) {
+        return OperationDtoMapper.handleSuccessResponseEntity(Math.sqrt(operands.get(0)), "");
     }
 
     @Override
     public void handleValidation(List<Double> operands) {
-
 
     }
 

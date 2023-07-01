@@ -8,18 +8,14 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
-public enum Addition implements ArithmeticOperation {
-    INSTANCE;
-
+public class Addition implements ArithmeticOperation {
     @Override
-    public ResponseEntity<OperationResponseDto> performOperation(List<Double> operands) {
+    public ResponseEntity<OperationResponseDto> calculate(List<Double> operands) {
         return OperationDtoMapper.handleSuccessResponseEntity(
-                operands.stream().mapToDouble(Double::doubleValue).sum(),"");
+                operands.stream().mapToDouble(Double::doubleValue).sum(), "");
     }
-
     @Override
     public void handleValidation(List<Double> operands) {
         OperationValidatorUtil.basicOperandValidation(operands);
     }
-
 }
