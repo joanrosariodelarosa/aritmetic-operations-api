@@ -18,15 +18,14 @@ public class LogoutService implements LogoutHandler {
     @Override
     public void logout(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
         final String authHeader = request.getHeader("Authorization");
-        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-            return;
-        }
-        var storedToken = tokenRepository.findByToken(authHeader.substring(7)).orElse(null);
-        if (storedToken != null) {
-            storedToken.setExpired(true);
-            storedToken.setRevoked(true);
-            tokenRepository.save(storedToken);
-            SecurityContextHolder.clearContext();
+        if (authHeader != null && authHeader.startsWith("Bearer ")) {
+            var storedToken = tokenRepository.findByToken(authHeader.substring(7)).orElse(null);
+            if (storedToken != null) {
+                storedToken.setExpired(true);
+                storedToken.setRevoked(true);
+                tokenRepository.save(storedToken);
+                SecurityContextHolder.clearContext();
+            }
         }
     }
 }

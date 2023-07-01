@@ -33,16 +33,25 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             final String jwtToken = authHeader.substring(7);
-            final String username = jwtService.extractUsername(jwtToken);
-            if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-                UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
+            if (isTokenValid(jwtToken)) {
+                final String username = jwtService.extractUsername(jwtToken);
+                if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+                    UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
 
-                if (jwtService.isTokenValid(jwtToken, userDetails)) {
-                    setTokenToSecurityContext(request, userDetails, false);
+                    if (jwtService.isTokenValid(jwtToken, userDetails)) {
+                        setTokenToSecurityContext(request, userDetails, false);
+                    }
                 }
             }
+
         }
         filterChain.doFilter(request, response);
+    }
+
+    private boolean isTokenValid(String jwt) {
+        return tokenRepository.findByToken(jwt)
+                .map(t -> !t.isExpired() && !t.isRevoked())
+                .orElse(false);
     }
 
     private void setTokenToSecurityContext(HttpServletRequest request, UserDetails userDetails, boolean tokenExpired) {
