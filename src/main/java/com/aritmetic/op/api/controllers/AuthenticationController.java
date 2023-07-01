@@ -18,8 +18,8 @@ public class AuthenticationController {
     private final AuthenticationService service;
 
     @PostMapping("/auth")
-    public ResponseEntity<LoginResponseDto> authenticate(@RequestBody LoginRequestDto request) {
-        return ResponseEntity.ok(service.authenticate(request));
+    public ResponseEntity<LoginResponseDto> authenticate(@RequestBody LoginRequestDto authRequest) {
+        return ResponseEntity.ok(service.authenticate(authRequest));
     }
 }
 

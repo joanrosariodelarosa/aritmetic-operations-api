@@ -1,8 +1,10 @@
 package com.aritmetic.op.api.exceptions;
 
 import com.aritmetic.op.api.dtos.OperationResponseDto;
+import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -15,6 +17,11 @@ public class CustomExceptionHandler {
     @ExceptionHandler(CustomException.class)
     public ResponseEntity<OperationResponseDto> handleCalculatorException(CustomException ex) {
         return handleBadResponseEntity(ex.getMessage());
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<OperationResponseDto> handleCalculatorException(HttpMessageNotReadableException ex) {
+        return handleBadResponseEntity("Operation not supported");
     }
 
     @ExceptionHandler(BadCredentialsException.class)

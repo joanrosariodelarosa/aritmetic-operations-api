@@ -13,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class OperationRequestDto {
-    private List<Double> numbers;
+    private List<Double> operands;
     private OperationType operationType;
 
 }
