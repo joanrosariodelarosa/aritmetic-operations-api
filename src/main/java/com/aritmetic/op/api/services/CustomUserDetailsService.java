@@ -112,6 +112,6 @@ public class CustomUserDetailsService implements UserDetailsService {
         listOfRecords = getListOfRecords();
         lastBalance = getLastBalance(listOfRecords);
         operationCost = getOperationCost(operationRequestDto.getOperationType());
-        return lastBalance <= operationCost;
+        return lastBalance >= operationCost;
     }
 }
