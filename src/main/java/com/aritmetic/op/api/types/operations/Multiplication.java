@@ -15,7 +15,7 @@ public class Multiplication implements ArithmeticOperation {
                 operands.stream().reduce(1.0, (a, b) -> a * b),"");
     }
     @Override
-    public void operationValidation(List<Double> operands) {
+    public void validateCalculation(List<Double> operands) {
         OperationValidatorUtil.invalidateOperationWithOneOperand(operands);
         OperationValidatorUtil.basicOperandValidation(operands);
     }

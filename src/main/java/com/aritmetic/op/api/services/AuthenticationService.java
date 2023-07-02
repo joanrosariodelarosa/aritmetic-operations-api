@@ -59,7 +59,7 @@ public class AuthenticationService {
                 .build();
         tokenRepository.save(token);
     }
-
+    //This table is only for table population purpose
     public void register(LoginRequestDto request) {
         var user = User.builder()
                 .username(request.getUsername())
@@ -70,6 +70,8 @@ public class AuthenticationService {
         saveUserToken(jwtToken);
     }
 
+
+    //This table is only for table population purpose
     public void registerOperation() {
         long id = 1;
         OperationType otp = OperationType.Subtraction;

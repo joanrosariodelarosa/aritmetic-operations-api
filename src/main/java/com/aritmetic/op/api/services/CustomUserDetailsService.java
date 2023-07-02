@@ -1,6 +1,5 @@
 package com.aritmetic.op.api.services;
 
-import com.aritmetic.op.api.dtos.OperationRequestDto;
 import com.aritmetic.op.api.dtos.OperationResponseDto;
 import com.aritmetic.op.api.models.Operation;
 import com.aritmetic.op.api.models.Record;
@@ -56,10 +55,10 @@ public class CustomUserDetailsService implements UserDetailsService {
         return user;
     }
 
-    public ResponseEntity<OperationResponseDto> save(OperationRequestDto operationRequestDto,
-                                                     ResponseEntity<OperationResponseDto> result) {
+    public ResponseEntity<OperationResponseDto> saveOperation(OperationType operationType,
+                                                              ResponseEntity<OperationResponseDto> result) {
         List<Record> listOfRecords = this.listOfRecords.size() == 0 ? getListOfRecords() : this.listOfRecords;
-        double operationCost = this.operationCost == 0 ? getOperationCost(operationRequestDto.getOperationType()) : this.operationCost;
+        double operationCost = this.operationCost == 0 ? getOperationCost(operationType) : this.operationCost;
         double lastBalance = this.lastBalance == 0 ? getLastBalance(listOfRecords) : this.lastBalance;
         result.getBody().setCurrentBalance(lastBalance - operationCost);
         listOfRecords.add(createAndSaveNewRecord(result));
@@ -108,10 +107,10 @@ public class CustomUserDetailsService implements UserDetailsService {
         return record;
     }
 
-    public boolean canPerformOperation(OperationRequestDto operationRequestDto) {
+    public boolean canPerformOperation(OperationType operationType) {
         listOfRecords = getListOfRecords();
         lastBalance = getLastBalance(listOfRecords);
-        operationCost = getOperationCost(operationRequestDto.getOperationType());
+        operationCost = getOperationCost(operationType);
         return lastBalance >= operationCost;
     }
 }

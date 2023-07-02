@@ -12,13 +12,12 @@ public class Addition implements ArithmeticOperation {
 
     @Override
     public ResponseEntity<OperationResponseDto> calculate(List<Double> operands) {
-        ResponseEntity<OperationResponseDto> res =
-                OperationDtoMapper.handleSuccessResponseEntity(operands.stream().mapToDouble(Double::doubleValue).sum(), "");
-        return res;
+        return OperationDtoMapper.handleSuccessResponseEntity(
+                operands.stream().mapToDouble(Double::doubleValue).sum(), "");
     }
 
     @Override
-    public void operationValidation(List<Double> operands) {
+    public void validateCalculation(List<Double> operands) {
         OperationValidatorUtil.invalidateOperationWithOneOperand(operands);
         OperationValidatorUtil.basicOperandValidation(operands);
 

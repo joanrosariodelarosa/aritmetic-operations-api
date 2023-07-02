@@ -18,7 +18,7 @@ public class Record {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "operation_id")
     private Operation operation;
     private double amount;

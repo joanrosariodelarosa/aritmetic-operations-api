@@ -18,7 +18,7 @@ public class SquareRoot implements ArithmeticOperation {
     }
 
     @Override
-    public void operationValidation(List<Double> operands) {
+    public void validateCalculation(List<Double> operands) {
         OperationValidatorUtil.basicOperandValidation(operands);
         if (!OperationValidatorUtil.containOneOperand(operands)) {
             throw new CustomException(ERROR_JUST_ONE_NUMBER);

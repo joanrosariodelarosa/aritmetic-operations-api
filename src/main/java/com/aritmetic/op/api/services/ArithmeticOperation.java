@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface ArithmeticOperation {
     ResponseEntity<OperationResponseDto> calculate(List<Double> operands);
-    void operationValidation(List<Double> operands);
+    void validateCalculation(List<Double> operands);
 }

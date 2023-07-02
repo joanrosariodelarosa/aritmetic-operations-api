@@ -11,4 +11,6 @@ public class Constants {
     public static String MISSING_NUMBERS_ERROR_MESSAGE = "Missing operands in list";
     public static String RANDOM_STRING_API = "https://www.random.org/strings/?num=1&len=32&digits=on&upperalpha=on&unique=on&format=plain";
 
+    public static String INSUFFICIENT_BALANCE = "Insufficient Balance for this operation!";
+
 }
