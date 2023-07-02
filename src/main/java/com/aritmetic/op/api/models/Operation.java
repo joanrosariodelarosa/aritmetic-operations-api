@@ -17,6 +17,7 @@ public class Operation {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @Column(name = "operation_type")
     private OperationType operationType;
     private double cost;
 

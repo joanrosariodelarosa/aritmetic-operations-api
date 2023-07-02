@@ -3,12 +3,18 @@ package com.aritmetic.op.api.services;
 import com.aritmetic.op.api.dtos.LoginRequestDto;
 import com.aritmetic.op.api.dtos.LoginResponseDto;
 import com.aritmetic.op.api.filters.JwtService;
+import com.aritmetic.op.api.models.Operation;
 import com.aritmetic.op.api.models.Token;
+import com.aritmetic.op.api.models.User;
+import com.aritmetic.op.api.repositories.OperationRepository;
 import com.aritmetic.op.api.repositories.TokenRepository;
+import com.aritmetic.op.api.repositories.UserRepository;
+import com.aritmetic.op.api.types.OperationType;
 import com.aritmetic.op.api.types.TokenType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
@@ -20,6 +26,12 @@ public class AuthenticationService {
     private final CustomUserDetailsService customUserDetailsService;
 
     private final TokenRepository tokenRepository;
+
+    private final PasswordEncoder passwordEncoder;
+
+    private final UserRepository userRepository;
+
+    private final OperationRepository operationRepository;
 
     public LoginResponseDto authenticate(LoginRequestDto request) {
         authenticationManager.authenticate(
@@ -46,5 +58,22 @@ public class AuthenticationService {
                 .revoked(false)
                 .build();
         tokenRepository.save(token);
+    }
+
+    public void register(LoginRequestDto request) {
+        var user = User.builder()
+                .username(request.getUsername())
+                .password(passwordEncoder.encode(request.getPassword()))
+                .build();
+        userRepository.save(user);
+        var jwtToken = jwtService.generateToken(user);
+        saveUserToken(jwtToken);
+    }
+
+    public void registerOperation() {
+        long id = 1;
+        OperationType otp = OperationType.Subtraction;
+        Operation op = Operation.builder().operationType(otp).id(id).cost(10).build();
+        operationRepository.save(op);
     }
 }

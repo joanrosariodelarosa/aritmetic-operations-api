@@ -15,7 +15,8 @@ public class Division implements ArithmeticOperation {
                 operands.stream().skip(1).reduce(operands.get(0), (a, b) -> a / b),"");
     }
     @Override
-    public void handleValidation(List<Double> operands) {
+    public void operationValidation(List<Double> operands) {
+        OperationValidatorUtil.invalidateOperationWithOneOperand(operands);
         OperationValidatorUtil.basicOperandValidation(operands);
     }
 

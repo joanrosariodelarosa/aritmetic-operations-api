@@ -18,19 +18,18 @@ public class Record {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @Column(name = "operation_id")
-    private Long operationId;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "operation_id")
+    private Operation operation;
+    private double amount;
     @Column(name = "user_id")
     private Long userId;
-    private double amount;
     @Column(name = "user_balance")
     private double userBalance;
     @Column(name = "operation_response")
     private String operationResponse;
     private LocalDateTime date;
-    @ManyToOne
-    @JoinColumn(name = "user_id", insertable = false, updatable = false)
-    private User user;
+
 }
 
 

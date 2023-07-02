@@ -9,13 +9,18 @@ import org.springframework.http.ResponseEntity;
 import java.util.List;
 
 public class Addition implements ArithmeticOperation {
+
     @Override
     public ResponseEntity<OperationResponseDto> calculate(List<Double> operands) {
-        return OperationDtoMapper.handleSuccessResponseEntity(
-                operands.stream().mapToDouble(Double::doubleValue).sum(), "");
+        ResponseEntity<OperationResponseDto> res =
+                OperationDtoMapper.handleSuccessResponseEntity(operands.stream().mapToDouble(Double::doubleValue).sum(), "");
+        return res;
     }
+
     @Override
-    public void handleValidation(List<Double> operands) {
+    public void operationValidation(List<Double> operands) {
+        OperationValidatorUtil.invalidateOperationWithOneOperand(operands);
         OperationValidatorUtil.basicOperandValidation(operands);
+
     }
 }

@@ -6,5 +6,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class RandomStringService {
-    public ResponseEntity<OperationResponseDto> getRandomString(){ return null;}
+    public ResponseEntity<OperationResponseDto> getRandomString() {
+        return null;
+    }
 }

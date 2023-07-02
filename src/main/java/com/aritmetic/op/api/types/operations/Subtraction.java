@@ -17,7 +17,8 @@ public class Subtraction implements ArithmeticOperation {
     }
 
     @Override
-    public void handleValidation(List<Double> operands) {
+    public void operationValidation(List<Double> operands) {
+        OperationValidatorUtil.invalidateOperationWithOneOperand(operands);
         OperationValidatorUtil.basicOperandValidation(operands);
     }
 

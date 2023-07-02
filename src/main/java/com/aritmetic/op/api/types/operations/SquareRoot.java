@@ -1,11 +1,15 @@
 package com.aritmetic.op.api.types.operations;
 
 import com.aritmetic.op.api.dtos.OperationResponseDto;
+import com.aritmetic.op.api.exceptions.CustomException;
 import com.aritmetic.op.api.services.ArithmeticOperation;
 import com.aritmetic.op.api.util.OperationDtoMapper;
+import com.aritmetic.op.api.util.OperationValidatorUtil;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
+
+import static com.aritmetic.op.api.Constants.ERROR_JUST_ONE_NUMBER;
 
 public class SquareRoot implements ArithmeticOperation {
     @Override
@@ -14,8 +18,11 @@ public class SquareRoot implements ArithmeticOperation {
     }
 
     @Override
-    public void handleValidation(List<Double> operands) {
-
+    public void operationValidation(List<Double> operands) {
+        OperationValidatorUtil.basicOperandValidation(operands);
+        if (!OperationValidatorUtil.containOneOperand(operands)) {
+            throw new CustomException(ERROR_JUST_ONE_NUMBER);
+        }
     }
 
 }

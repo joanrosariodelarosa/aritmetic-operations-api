@@ -8,8 +8,8 @@ public class ArithmeticOperationFactory {
 
     public static ArithmeticOperation getArithmeticOperation(OperationType operationType) {
         try {
-            return (ArithmeticOperation) Class.forName(OPERATIONS_PATH + operationType.toString())
-                    .getDeclaredConstructor().newInstance();
+            return (ArithmeticOperation) Class.forName(OPERATIONS_PATH + operationType.toString()).getDeclaredConstructor()
+                    .newInstance();
         } catch (Exception e) {
             throw new CustomException("Missing implementation for operation type: " + operationType);
         }
