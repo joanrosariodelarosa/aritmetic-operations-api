@@ -9,5 +9,6 @@ public class Constants {
     public static String ONLY_DOUBLE_NUMBERS_ERROR_MESSAGE = "Only numbers of type double allowed";
     public static String ONLY_TWO_NUMBERS_ALLOWED_MESSAGE = "Only 2 operands allowed";
     public static String MISSING_NUMBERS_ERROR_MESSAGE = "Missing operands in list";
+    public static String RANDOM_STRING_API = "https://www.random.org/strings/?num=1&len=32&digits=on&upperalpha=on&unique=on&format=plain";
 
 }
