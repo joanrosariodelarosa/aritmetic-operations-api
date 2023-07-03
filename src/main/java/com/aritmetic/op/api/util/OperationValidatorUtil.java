@@ -44,7 +44,7 @@ public class OperationValidatorUtil {
     }
 
     public static void basicOperandValidation(List<Double> operands) {
-        String error = notContainOnlyNumbers(operands);
+        String error = validateOnlyNumberOperands(operands);
         if (error.length() == 0) {
             if (invalidNumberOfOperands(operands)) {
                 error = ONLY_TWO_NUMBERS_ALLOWED_MESSAGE;
@@ -61,7 +61,7 @@ public class OperationValidatorUtil {
         return !(missingOperandsInList(numbers).length() > 0) && numbers.stream().anyMatch(n -> n < 0);
     }
 
-    private static String notContainOnlyNumbers(List<Double> numbers) {
+    private static String validateOnlyNumberOperands(List<Double> numbers) {
         String error = "";
         for (Object number : numbers) {
             if (!(number instanceof Double)) {

@@ -18,6 +18,7 @@ public class Division implements ArithmeticOperation {
     public void validateCalculation(List<Double> operands) {
         OperationValidatorUtil.invalidateOperationWithOneOperand(operands);
         OperationValidatorUtil.basicOperandValidation(operands);
+        OperationValidatorUtil.validateDivisionByZero(operands);
     }
 
 }

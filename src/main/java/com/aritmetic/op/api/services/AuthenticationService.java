@@ -59,7 +59,7 @@ public class AuthenticationService {
                 .build();
         tokenRepository.save(token);
     }
-    //This table is only for table population purpose
+    // This method is only for table population purpose and test
     public void register(LoginRequestDto request) {
         var user = User.builder()
                 .username(request.getUsername())
@@ -71,7 +71,7 @@ public class AuthenticationService {
     }
 
 
-    //This table is only for table population purpose
+    // This method is only for table population purpose and test
     public void registerOperation() {
         long id = 1;
         OperationType otp = OperationType.Subtraction;

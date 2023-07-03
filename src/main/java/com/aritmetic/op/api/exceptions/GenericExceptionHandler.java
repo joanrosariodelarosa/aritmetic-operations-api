@@ -1,7 +1,6 @@
 package com.aritmetic.op.api.exceptions;
 
 import com.aritmetic.op.api.dtos.OperationResponseDto;
-import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -12,7 +11,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import static com.aritmetic.op.api.Constants.UNKNOWN_ERROR;
 
 @ControllerAdvice
-public class CustomExceptionHandler {
+public class GenericExceptionHandler {
 
     @ExceptionHandler(CustomException.class)
     public ResponseEntity<OperationResponseDto> handleCalculatorException(CustomException ex) {
