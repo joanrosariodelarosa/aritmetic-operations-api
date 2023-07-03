@@ -6,6 +6,8 @@ import com.aritmetic.op.api.models.Record;
 import com.aritmetic.op.api.models.User;
 import com.aritmetic.op.api.repositories.RecordRepository;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +19,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class RecordService {
-
+    Logger logger = LoggerFactory.getLogger(RecordService.class);
     private final RecordRepository recordRepository;
     private final CustomUserDetailsService customUserDetailsService;
 
@@ -37,6 +39,7 @@ public class RecordService {
                 .operationResponse(result.getBody().toString())
                 .build();
         recordRepository.save(record);
+        logger.info("Operation completed Record saved: {}", record);
         return record;
     }
 

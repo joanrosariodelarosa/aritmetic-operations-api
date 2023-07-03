@@ -14,7 +14,7 @@ import static com.aritmetic.op.api.Constants.ERROR_JUST_ONE_NUMBER;
 public class SquareRoot implements ArithmeticOperation {
     @Override
     public ResponseEntity<OperationResponseDto> calculate(List<Double> operands) {
-        return OperationDtoMapper.handleSuccessResponseEntity(Math.sqrt(operands.get(0)), "");
+        return OperationDtoMapper.handleSuccessOperationResponseEntity(Math.sqrt(operands.get(0)), "");
     }
 
     @Override

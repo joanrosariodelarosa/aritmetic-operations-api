@@ -13,7 +13,7 @@ public class RandomString implements ArithmeticOperation {
     @Override
     public ResponseEntity<OperationResponseDto> calculate(List<Double> operands) {
         RandomStringService randomStringService = new RandomStringService();
-        return OperationDtoMapper.handleSuccessResponseEntity(0.0, randomStringService.getRandomString());
+        return OperationDtoMapper.handleSuccessOperationResponseEntity(0.0, randomStringService.getRandomString());
     }
 
     @Override

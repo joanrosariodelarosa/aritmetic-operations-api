@@ -12,7 +12,7 @@ public class Subtraction implements ArithmeticOperation {
 
     @Override
     public ResponseEntity<OperationResponseDto> calculate(List<Double> operands) {
-        return OperationDtoMapper.handleSuccessResponseEntity(
+        return OperationDtoMapper.handleSuccessOperationResponseEntity(
                 operands.stream().reduce((a, b) -> a - b).orElse(0.0), "");
     }
 

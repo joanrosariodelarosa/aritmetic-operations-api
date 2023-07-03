@@ -12,7 +12,7 @@ public class Addition implements ArithmeticOperation {
 
     @Override
     public ResponseEntity<OperationResponseDto> calculate(List<Double> operands) {
-        return OperationDtoMapper.handleSuccessResponseEntity(
+        return OperationDtoMapper.handleSuccessOperationResponseEntity(
                 operands.stream().mapToDouble(Double::doubleValue).sum(), "");
     }
 

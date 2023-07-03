@@ -28,6 +28,11 @@ public class GenericExceptionHandler {
         return handleBadResponseEntity(ex.getMessage());
     }
 
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<OperationResponseDto> handleBadCredentialsException(IllegalArgumentException ex) {
+        return handleBadResponseEntity(ex.getMessage());
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<OperationResponseDto> handleGenericException(Exception e) {
         return handleBadResponseEntity(UNKNOWN_ERROR);

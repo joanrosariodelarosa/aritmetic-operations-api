@@ -11,7 +11,7 @@ import java.util.List;
 public class Division implements ArithmeticOperation {
     @Override
     public ResponseEntity<OperationResponseDto> calculate(List<Double> operands) {
-        return OperationDtoMapper.handleSuccessResponseEntity(
+        return OperationDtoMapper.handleSuccessOperationResponseEntity(
                 operands.stream().skip(1).reduce(operands.get(0), (a, b) -> a / b),"");
     }
     @Override

@@ -11,7 +11,7 @@ import java.util.List;
 public class Multiplication implements ArithmeticOperation {
     @Override
     public ResponseEntity<OperationResponseDto> calculate(List<Double> operands) {
-        return OperationDtoMapper.handleSuccessResponseEntity(
+        return OperationDtoMapper.handleSuccessOperationResponseEntity(
                 operands.stream().reduce(1.0, (a, b) -> a * b),"");
     }
     @Override
