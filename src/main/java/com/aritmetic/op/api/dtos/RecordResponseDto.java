@@ -10,4 +10,5 @@ import java.util.List;
 @Builder
 public class RecordResponseDto {
     private List<Record> listOfRecords;
+    private int totalRecords;
 }
