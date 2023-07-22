@@ -28,7 +28,7 @@ public class RecordService {
         return recordRepository.findActiveRecordsByUserId(user.getId(), pageable).stream().toList();
     }
 
-    public void deleteRecord(long recordId) {
+    public void removeRecord(long recordId) {
         Record record = recordRepository.findById(recordId).get();
         record.setRecordActive(false);
         recordRepository.save(record);
