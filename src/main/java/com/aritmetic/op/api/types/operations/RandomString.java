@@ -5,6 +5,7 @@ import com.aritmetic.op.api.services.ArithmeticOperation;
 import com.aritmetic.op.api.services.RandomStringService;
 import com.aritmetic.op.api.util.OperationDtoMapper;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
