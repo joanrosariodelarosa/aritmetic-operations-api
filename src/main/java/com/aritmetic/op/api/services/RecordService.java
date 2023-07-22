@@ -27,8 +27,11 @@ public class RecordService {
         Pageable pageable = PageRequest.of(page, size);
         return recordRepository.findAllByUserIdOrderByDateDesc(user.getId(), pageable);
     }
-    public void deleteRecord(long recordId){
-        recordRepository.delete(recordRepository.findById(recordId).get());
+
+    public void deleteRecord(long recordId) {
+        Record record = recordRepository.findById(recordId).get();
+        record.setRecordActive(false);
+        recordRepository.save(record);
     }
 
     public long getTotalRecords() {
