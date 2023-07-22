@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "operation")
 public class Operation {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "operation_type")
     private OperationType operationType;

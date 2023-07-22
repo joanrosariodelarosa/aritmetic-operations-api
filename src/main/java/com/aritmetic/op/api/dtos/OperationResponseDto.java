@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class OperationResponseDto {
     private boolean success;
-    private double result;
+    private double operationResult;
     private String randomString;
     private double currentBalance;
     private String errorMessage;

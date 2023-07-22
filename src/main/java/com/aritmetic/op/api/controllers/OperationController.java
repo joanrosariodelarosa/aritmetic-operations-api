@@ -5,6 +5,7 @@ import com.aritmetic.op.api.dtos.OperationResponseDto;
 import com.aritmetic.op.api.dtos.RecordRequestDto;
 import com.aritmetic.op.api.dtos.RecordResponseDto;
 import com.aritmetic.op.api.exceptions.CustomException;
+import com.aritmetic.op.api.models.Record;
 import com.aritmetic.op.api.services.ArithmeticOperation;
 import com.aritmetic.op.api.services.CustomUserDetailsService;
 import com.aritmetic.op.api.services.OperationService;
@@ -47,9 +48,10 @@ public class OperationController {
 
     @PostMapping("/records/v1")
     public ResponseEntity<RecordResponseDto> records(@RequestBody RecordRequestDto operationRequestDto) {
-        return OperationDtoMapper.handleSuccessRecordResponseEntity(
-                recordService.getPaginatedRecords(customUserDetailsService.getSecuredUser(),
-                operationRequestDto.getRecordPage(), operationRequestDto.getRecordSize()));
+        List<Record> allRecords = recordService.getPaginatedRecords(customUserDetailsService.getSecuredUser(),
+                        operationRequestDto.getRecordPage(), operationRequestDto.getRecordSize());
+        long totalRecords = recordService.getTotalRecords();
+        return OperationDtoMapper.handleSuccessRecordResponseEntity(allRecords, totalRecords);
     }
 
 }

@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @Table(name = "record")
 public class Record {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
     @JoinColumn(name = "operation_id")
@@ -29,6 +29,8 @@ public class Record {
     @Column(name = "operation_response")
     private String operationResponse;
     private LocalDateTime date;
+    @Column(name = "record_active")
+    private boolean recordActive;
 
 }
 

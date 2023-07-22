@@ -15,16 +15,18 @@ public class OperationDtoMapper {
                                                                                             String randomString) {
         return ResponseEntity.ok(OperationResponseDto.builder()
                 .success(true)
-                .result(operationResult)
+                .operationResult(operationResult)
                 .randomString(randomString)
                 .currentBalance(0.0)
                 .errorMessage(SUCCESSFULLY_OPERATION)
                 .build());
     }
 
-    public static ResponseEntity<RecordResponseDto> handleSuccessRecordResponseEntity(List<Record> listOfRecords) {
+    public static ResponseEntity<RecordResponseDto> handleSuccessRecordResponseEntity(
+            List<Record> listOfRecords, long totalRecords) {
         return ResponseEntity.ok(RecordResponseDto.builder()
                 .listOfRecords(listOfRecords)
+                .totalRecords(totalRecords)
                 .build());
     }
 }

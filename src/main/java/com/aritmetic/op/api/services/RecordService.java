@@ -28,14 +28,19 @@ public class RecordService {
         return recordRepository.findAllByUserIdOrderByDateDesc(user.getId(), pageable);
     }
 
+    public long getTotalRecords() {
+        return recordRepository.count();
+    }
+
     public Record createAndSaveNewRecord(ResponseEntity<OperationResponseDto> result, Operation operation) {
         Record record = Record.builder()
                 .userBalance(0.5)
                 .userId(customUserDetailsService.getSecuredUser().getId())
                 .operation(operation)
                 .date(LocalDateTime.now())
-                .amount(result.getBody().getResult())
+                .amount(result.getBody().getOperationResult())
                 .userBalance(result.getBody().getCurrentBalance())
+                .recordActive(true)
                 .operationResponse(result.getBody().toString())
                 .build();
         recordRepository.save(record);
@@ -47,5 +52,6 @@ public class RecordService {
         List<Record> listOfRecords = getPaginatedRecords(customUserDetailsService.getSecuredUser(), 0, 1);
         return listOfRecords.size() != 0 ? listOfRecords.get(0).getUserBalance() : 0.0;
     }
+
 
 }
