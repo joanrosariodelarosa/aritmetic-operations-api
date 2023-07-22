@@ -2,6 +2,7 @@ package com.aritmetic.op.api.services;
 
 import com.aritmetic.op.api.dtos.OperationResponseDto;
 import com.aritmetic.op.api.models.Operation;
+import com.aritmetic.op.api.models.Record;
 import com.aritmetic.op.api.repositories.OperationRepository;
 import com.aritmetic.op.api.types.OperationType;
 import lombok.RequiredArgsConstructor;
@@ -41,7 +42,8 @@ public class OperationService {
         double operationCost = getOperationCost(operationType);
         double lastBalance = recordService.getLastBalanceFromListOfRecords();
         result.getBody().setCurrentBalance(lastBalance - operationCost);
-        recordService.createAndSaveNewRecord(result, getOperation(operationType));
+        Record record = recordService.createAndSaveNewRecord(result, getOperation(operationType));
+        result.getBody().setRecordCreated(record);
         return result;
     }
 }

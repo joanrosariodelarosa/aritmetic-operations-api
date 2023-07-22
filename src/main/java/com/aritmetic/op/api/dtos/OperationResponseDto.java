@@ -1,5 +1,6 @@
 package com.aritmetic.op.api.dtos;
 
+import com.aritmetic.op.api.models.Record;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,5 +16,6 @@ public class OperationResponseDto {
     private String randomString;
     private double currentBalance;
     private String errorMessage;
+    private Record recordCreated;
 
 }

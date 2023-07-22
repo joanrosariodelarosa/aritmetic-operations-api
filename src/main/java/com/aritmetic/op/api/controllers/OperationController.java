@@ -48,8 +48,11 @@ public class OperationController {
 
     @PostMapping("/records/v1")
     public ResponseEntity<RecordResponseDto> records(@RequestBody RecordRequestDto operationRequestDto) {
+        if (operationRequestDto.getAction().equals("remove")) {
+            recordService.deleteRecord(operationRequestDto.getRecordId());
+        }
         List<Record> allRecords = recordService.getPaginatedRecords(customUserDetailsService.getSecuredUser(),
-                        operationRequestDto.getRecordPage(), operationRequestDto.getRecordSize());
+                operationRequestDto.getRecordPage(), operationRequestDto.getRecordSize());
         long totalRecords = recordService.getTotalRecords();
         return OperationDtoMapper.handleSuccessRecordResponseEntity(allRecords, totalRecords);
     }

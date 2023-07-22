@@ -27,6 +27,9 @@ public class RecordService {
         Pageable pageable = PageRequest.of(page, size);
         return recordRepository.findAllByUserIdOrderByDateDesc(user.getId(), pageable);
     }
+    public void deleteRecord(long recordId){
+        recordRepository.delete(recordRepository.findById(recordId).get());
+    }
 
     public long getTotalRecords() {
         return recordRepository.count();
@@ -52,6 +55,5 @@ public class RecordService {
         List<Record> listOfRecords = getPaginatedRecords(customUserDetailsService.getSecuredUser(), 0, 1);
         return listOfRecords.size() != 0 ? listOfRecords.get(0).getUserBalance() : 0.0;
     }
-
 
 }

@@ -6,4 +6,6 @@ import lombok.Data;
 public class RecordRequestDto {
     private int recordPage;
     private int recordSize;
+    private String action;
+    private int recordId;
 }
