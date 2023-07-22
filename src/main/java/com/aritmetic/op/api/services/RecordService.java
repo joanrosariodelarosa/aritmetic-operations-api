@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -25,7 +26,8 @@ public class RecordService {
 
     public List<Record> getPaginatedRecords(User user, int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
-        return recordRepository.findAllByUserIdOrderByDateDesc(user.getId(), pageable);
+        return recordRepository.findAllByUserIdOrderByDateDesc(user.getId(), pageable).stream()
+                .filter(record -> record.isRecordActive()).collect(Collectors.toList());
     }
 
     public void deleteRecord(long recordId) {
