@@ -1,6 +1,5 @@
 # Arithmetic Operations API
 
-------
 ## General info
 This simple application allow to execute basic mathematical operations.
 
