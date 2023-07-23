@@ -17,7 +17,7 @@ This simple application allow to execute basic mathematical operations.
 - Spring Security (Included in Spring Boot)
 - JWT (JSON Web Token) (Version: 0.11.5)
 - Log4j (Version: 1.3.8.RELEASE)
-
+- Angular (front end project) https://github.com/joanrosariodelarosa/arithmetic-operation-ui
 
 ### Setup
 1. Clone github repository <br />
