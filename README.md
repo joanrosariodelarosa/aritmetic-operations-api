@@ -36,7 +36,6 @@ This simple application allow to execute basic mathematical operations.
 - Authentication and Authorization
 - Pagination and Filtering (Operation Records)
 
-------
 
 ## Postman
 
