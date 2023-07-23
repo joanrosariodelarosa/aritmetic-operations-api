@@ -1,5 +1,5 @@
 # Arithmetic Operations API
-
+![Untitled_ Jul 23, 2023 12_03 AM.gif](..%2FUntitled_%20Jul%2023%2C%202023%2012_03%20AM.gif)
 ## General info
 This simple application allow to execute basic mathematical operations.
 
