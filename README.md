@@ -77,9 +77,10 @@ This simple application allow to execute basic mathematical operations.
 
   * Addition
   * RandomString
-  * Substraccion
+  * Substraction
   * Multiplication
   * Division
+  * Square root
 
 
     curl --location --request POST 'http://operations.us-east-1.elasticbeanstalk.com/operation/v1' \
