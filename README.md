@@ -19,10 +19,6 @@ This simple application allow to execute basic mathematical operations.
 - Log4j (Version: 1.3.8.RELEASE)
 - Angular (front end project) https://github.com/joanrosariodelarosa/arithmetic-operation-ui
 
-### Setup
-1. Clone github repository <br />
-2. Download maven dependencies <br />
-3. Hit run button <br />
 
 ### Features
 
@@ -34,6 +30,13 @@ This simple application allow to execute basic mathematical operations.
 - Random String: Generate random strings using a third-party API (e.g., https://www.random.org/clients).
 - Authentication and Authorization
 - Pagination and Filtering (Operation Records)
+
+
+### Setup
+1. Clone github repository <br />
+2. Download maven dependencies <br />
+3. Hit run button <br />
+
 
 
 ## Postman
