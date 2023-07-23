@@ -71,7 +71,7 @@ This simple application allow to execute basic mathematical operations.
     "recordId" : 25
     }'
 
----------------
+
 ## Operations
 
   * Addition
@@ -82,7 +82,7 @@ This simple application allow to execute basic mathematical operations.
 
 
     curl --location --request POST 'http://operations.us-east-1.elasticbeanstalk.com/operation/v1' \
-    --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqb2Nhcm9zYSIsImlhdCI6MTY5MDAwNTA0MiwiZXhwIjoxNjkwMDA1MjgyfQ.4n2dBGnTswFd83ne_CdvrE_OtF3GCa8UYg9wAXMzL5M' \
+     --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqb2Nhcm9zYSIsImlhdCI6MTY5MDAwNTA0MiwiZXhwIjoxNjkwMDA1MjgyfQ.4n2dBGnTswFd83ne_CdvrE_OtF3GCa8UYg9wAXMzL5M' \
     --header 'Content-Type: application/json' \
     --header 'Cookie: JSESSIONID=1BE48C07185CD63B1B45113D178B3A45' \
     --data-raw '{
